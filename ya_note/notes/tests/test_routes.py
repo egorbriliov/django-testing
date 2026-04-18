@@ -71,16 +71,12 @@ class TestRoutes(TestCase):
         2. Cтраница успешного добавления заметки done/
         3. Cтраница добавления новой заметки add/.
         """
-        users_statuses = (
-            (self.reader, HTTPStatus.OK),
-        )
-        for user, status in users_statuses:
-            self.client.force_login(user)
-            for name in ('notes:list', 'notes:success', 'notes:add'):
-                with self.subTest(user=user, name=name):
-                    url = reverse(name)
-                    response = self.client.get(url)
-                    self.assertEqual(response.status_code, status)
+        self.client.force_login(self.reader)
+        for name in ('notes:list', 'notes:success', 'notes:add'):
+            with self.subTest(name=name):
+                url = reverse(name)
+                response = self.client.get(url)
+                self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_availability_for_note_edit_and_delete(self):
         """Проверка авторизации пользователя."""
@@ -90,7 +86,7 @@ class TestRoutes(TestCase):
         )
         for user, status in users_statuses:
             self.client.force_login(user)
-            for name in ('notes:edit', 'notes:delete'):
+            for name in ('notes:detail', 'notes:edit', 'notes:delete'):
                 with self.subTest(user=user, name=name):
                     url = reverse(name, args=(self.note.slug,))
                     response = self.client.get(url)
