@@ -1,52 +1,42 @@
-from django.urls import reverse
-
-import pytest
 from news.forms import CommentForm
+from yanews import settings
 
 
-@pytest.mark.django_db
-def test_news_count(news, author_client):
+def test_news_count(author_client, home_url):
     """Тестировние количества выводимых новостей на главную страницу."""
-    url = reverse('news:home')
-    response = author_client.get(url)
+    response = author_client.get(home_url)
     news = response.context['object_list']
-    assert news.count() <= 10
+    assert news.count() <= settings.NEWS_COUNT_ON_HOME_PAGE
 
 
-@pytest.mark.django_db
-def test_news_order(news, author_client):
+def test_news_order(author_client, home_url):
     """Тестирование сортировки новостей от новых к старым."""
-    url = reverse('news:home')
-    response = author_client.get(url)
+    response = author_client.get(home_url)
     news = response.context['object_list']
-    sorted_news = sorted(news, key=lambda news: news.date, reverse=True)
-    for old, new in zip(news, sorted_news):
+    for old, new in zip(news, sorted(news,
+                                     key=lambda
+                                     news: news.date,
+                                     reverse=True)):
         assert old.date == new.date
 
 
-@pytest.mark.django_db
-def test_comments_order(news, author_client):
+def test_comments_order(author_client, detail_url):
     """Тестирвоание комментриев от начального к конечному."""
-    url = reverse('news:detail', args=(news.pk, ))
-    response = author_client.get(url)
+    response = author_client.get(detail_url)
     comments = response.context['news'].comment_set.all()
-    sorted_comments = sorted(comments, key=lambda comment: comment.date)
+    sorted_comments = sorted(comments, key=lambda comment: comment.created)
     for old, new in zip(comments, sorted_comments):
-        assert old.date == new.date
+        assert old.created == new.created
 
 
-@pytest.mark.parametrize(
-    'target_client, available',
-    ((pytest.lazy_fixture('admin_client'), True),  # type: ignore
-     (pytest.lazy_fixture('client'), False))  # type: ignore
-)
-@pytest.mark.django_db
-def test_comment_form_availability_for_different_users(
-    news, target_client, available
-):
+def test_comment_form_availability_for_auth_user(detail_url, author_client):
     """Тестирование доступности формы для различных пользователей."""
-    url = reverse('news:detail', args=(news.pk,))
-    response = target_client.get(url)
-    assert ('form' in response.context) is available
-    if available:
-        assert isinstance(response.context['form'], CommentForm)
+    response = author_client.get(detail_url)
+    assert 'form' in response.context
+    assert isinstance(response.context['form'], CommentForm)
+
+
+def test_comment_form_availability_for_anonim(detail_url, anonim_client):
+    """Тестирование доступности формы для анонимного пользователя."""
+    response = anonim_client.get(detail_url)
+    assert 'form' not in response.context
