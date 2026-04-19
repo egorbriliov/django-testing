@@ -42,9 +42,10 @@ def test_comments_order(news, author_client):
 )
 @pytest.mark.django_db
 def test_comment_form_availability_for_different_users(
-        news_pk, target_client, available):
+    news, target_client, available
+):
     """Тестирование доступности формы для различных пользователей."""
-    url = reverse('news:detail', args=news_pk)
+    url = reverse('news:detail', args=(news.pk,))
     response = target_client.get(url)
     assert ('form' in response.context) is available
     if available:
