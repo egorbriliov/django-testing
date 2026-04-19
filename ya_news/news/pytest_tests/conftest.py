@@ -49,5 +49,5 @@ def comment(news, author):
 
 
 @pytest.fixture
-def comment_pk(comment):
-    return (comment.pk, )
+def comment_form_data():
+    return {'text': 'Text'}
