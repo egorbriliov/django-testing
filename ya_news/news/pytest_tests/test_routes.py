@@ -27,10 +27,10 @@ def test_pages_availability_for_anonymous_user(client, page, args):
 @pytest.mark.parametrize('page', ('news:edit', 'news:delete'))
 @pytest.mark.django_db
 def test_comment_interaction_availability_for_different_users(
-    page, comment_pk, reader_client
+    page, comment, reader_client
 ):
     """Проверка изменния комментария пользовтелем не являющимся автором."""
-    url = reverse(page, args=comment_pk)
+    url = reverse(page, args=(comment.pk,))
     response = reader_client.get(url)
     assert response.status_code == HTTPStatus.NOT_FOUND
 
@@ -38,20 +38,20 @@ def test_comment_interaction_availability_for_different_users(
 @pytest.mark.parametrize('page', ('news:edit', 'news:delete'))
 @pytest.mark.django_db
 def test_pages_availability_for_auth_user(
-    page, comment_pk, author_client
+    page, comment, author_client
 ):
     """Проверка изменния комментария пользовтелем являющимся автором."""
-    url = reverse(page, args=comment_pk)
+    url = reverse(page, args=(comment.pk,))
     response = author_client.get(url)
     assert response.status_code == HTTPStatus.OK
 
 
 @pytest.mark.parametrize('page', ('news:edit', 'news:delete'))
 @pytest.mark.django_db
-def test_redicts(client, page, comment_pk):
+def test_redicts(client, page, comment):
     """Проверка перенаправлений анонимного пользоваеля."""
     login_url = reverse('users:login')
-    url = reverse(page, args=comment_pk)
+    url = reverse(page, args=(comment.pk,))
     expected_url = f'{login_url}?next={url}'
     response = client.get(url)
     assertRedirects(response, expected_url)
