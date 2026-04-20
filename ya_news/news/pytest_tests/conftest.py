@@ -3,7 +3,7 @@ from django.test import Client
 from django.urls import reverse
 from news.models import Comment, News
 
-from ya_news.yanews import settings
+from yanews import settings
 
 
 @pytest.fixture(autouse=True)
