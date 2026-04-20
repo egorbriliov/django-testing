@@ -1,35 +1,14 @@
 import pytest
 from django.test import Client
 from django.urls import reverse
-from news.models import Comment, News
 
 from yanews import settings
+from news.models import Comment, News
 
 
 @pytest.fixture(autouse=True)
 def enable_db_access_for_all_tests(db):
     pass
-
-
-@pytest.fixture(autouse=True)
-def many_news(db):
-    return News.objects.bulk_create(
-        News(title=f'Title {index}', text='text')
-        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE * 2)
-    )
-
-
-@pytest.fixture(autouse=True)
-def many_comments(author, db):
-    news = News.objects.create(title='title', text='text')
-    return Comment.objects.bulk_create(
-        Comment(
-            news=news,
-            author=author,
-            text=f'Comment #{index}'
-        )
-        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1)
-    )
 
 
 @pytest.fixture
@@ -63,12 +42,36 @@ def reader_client(reader):
 
 @pytest.fixture()
 def news():
+    if not News.objects.exists():
+        News.objects.create(title='title', text='text')
     return News.objects.first()
 
 
 @pytest.fixture()
-def comment():
+def many_news():
+    return News.objects.bulk_create(
+        News(title=f'Title {index}', text='text')
+        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE * 2)
+    )
+
+
+@pytest.fixture()
+def comment(news, author):
+    if not Comment.objects.exists():
+        Comment.objects.create(news=news, text='text', author=author)
     return Comment.objects.first()
+
+
+@pytest.fixture()
+def many_comments(author, news):
+    return Comment.objects.bulk_create(
+        Comment(
+            news=news,
+            author=author,
+            text=f'Comment #{index}'
+        )
+        for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1)
+    )
 
 
 @pytest.fixture

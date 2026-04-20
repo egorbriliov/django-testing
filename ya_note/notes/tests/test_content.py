@@ -8,7 +8,6 @@ User = get_user_model()
 
 
 class TestContent(BaseClass):
-    # @unittest.skip('Failure')
     def test_notes_list_for_different_users(self):
         """
         Проверка, чтобы в список заметок одного пользователя не попадали,
