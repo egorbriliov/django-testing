@@ -1,9 +1,9 @@
 # Django Testing: YaNote & YaNews
 
-![Python](https://shields.io)
-![Static Badge](https://img.shields.io/badge/Django?style=flat&logo=django&logoColor=green&label=Django&labelColor=black&color=black)`
-![Pytest](https://shields.io)
-![Unittest](https://shields.io)
+![Python](https://img.shields.io/badge/python-black?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Django](https://img.shields.io/badge/django-black.svg?style=for-the-badge&logo=django&logoColor=3CB371)
+![pytest](https://img.shields.io/badge/pytest-black.svg?style=for-the-badge&logo=pytest&logoColor=white)
+![unittest](https://img.shields.io/badge/unittest-black.svg?style=for-the-badge&logo=labex&logoColor=6A5ACD)
 
 ## Description
 
@@ -28,38 +28,41 @@ This project serves as a showcase of my Backend QA skills. It demonstrates my ab
 
 ## Setup & Installation
 
-1. **Clone the repository:**
+###
 
-   ```bash
-   git clone https://github.com
-   cd django_testing
-   ```
+#### 1. Clone the repository
 
-2. **Create and activate a virtual environment:**
+```bash
+git clone https://github.com
+cd django_testing
+```
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # For Windows: venv\Scripts\activate
-   ```
+#### 2. Create and activate a virtual environment
 
-3. **Install dependencies:**
+```bash
+python -m venv venv
+source venv/bin/activate
+```
+
+#### 3. Install dependencies
 
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run tests:**
-   - For **YaNote** (Unittest):
+#### 4. Run tests
 
-       ```bash
-       python manage.py test yanote
-        ```
+For **YaNote** (Unittest):
 
-   - For **YaNews** (Pytest):
+```bash
+python manage.py test yanote
+```
 
-       ```bash
-       pytest
-       ```
+For **YaNews** (Pytest):
+
+```bash
+pytest
+```
 
 ## Contacts
 
