@@ -1,52 +1,67 @@
-# Django testing  
-## Если вы успели выполнить все домашние задания — ваш финальный проект готов.
-Перенесите тесты из ваших проектов в данный репозиторий (**django-testing**), который появился в вашем аккаунте.  
-В итоге должна получиться следующая структура репозитория:
-```
-Dev
- └── django-testing
-     ├── ya_news
-     │   ├── news
-     │   │   ├── fixtures/
-     │   │   ├── migrations/
-     │   │   ├── pytest_tests/   <- Директория с вашими тестами pytest для проекта ya_news
-     │   │   ├── __init__.py
-     │   │   ├── admin.py
-     │   │   ├── apps.py
-     │   │   ├── forms.py
-     │   │   ├── models.py
-     │   │   ├── urls.py
-     │   │   └── views.py
-     │   ├── templates/
-     │   ├── yanews/
-     │   ├── manage.py
-     │   └── pytest.ini
-     ├── ya_note
-     │   ├── notes
-     │   │   ├── migrations/
-     │   │   ├── tests/          <- Директория с вашими тестами unittest для проекта ya_note
-     │   │   ├── __init__.py
-     │   │   ├── admin.py
-     │   │   ├── apps.py
-     │   │   ├── forms.py
-     │   │   ├── models.py
-     │   │   ├── urls.py
-     │   │   └── views.py
-     │   ├── templates/
-     │   ├── yanote/
-     │   ├── manage.py
-     │   └── pytest.ini
-     ├── .gitignore
-     ├── README.md
-     ├── requirements.txt
-     └── structure_test.py
-```
+# Django Testing: YaNote & YaNews
 
-## После копирования тестов, написанных в ходе прохождения спринта, для проверки готовности проекта к сдаче необходимо выполнить 4 действия:
-1. Создать и активировать виртуальное окружение; установить зависимости из файла `requirements.txt`;
-2. Запустить скрипт для `run_tests.sh` из корневой директории проекта:
-```sh
-bash run_tests.sh
-```
+![Python](https://shields.io)
+![Static Badge](https://img.shields.io/badge/Django?style=flat&logo=django&logoColor=green&label=Django&labelColor=black&color=black)`
+![Pytest](https://shields.io)
+![Unittest](https://shields.io)
 
-**Если все проверки успешно выполнились, проект можно отправлять на ревью.**
+## Description
+
+This project was developed as part of the **Yandex Practicum** curriculum. The main goal was to master Django application testing using various frameworks and methodologies.
+
+The repository includes two separate applications:
+
+1. **YaNote** — a note-taking service tested with the standard **Unittest** library.
+
+2. **YaNews** — a news portal tested with the **Pytest** framework.
+
+## Purpose
+
+This project serves as a showcase of my Backend QA skills. It demonstrates my ability to write maintainable tests, manage fixtures, and verify complex business logic within real-world Django environments.
+
+## Key Testing Areas
+
+- **Models:** Ensuring correct object creation, string representations, and attribute validation.
+- **URLs & Access:** Verifying page availability for anonymous users, authorized users, and content authors.
+- **Forms:** Data validation and handling of edge cases in user input.
+- **Business Logic:** Testing CRUD operations (Create, Read, Update, Delete) for notes and comments.
+
+## Setup & Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com
+   cd django_testing
+   ```
+
+2. **Create and activate a virtual environment:**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # For Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run tests:**
+   - For **YaNote** (Unittest):
+
+       ```bash
+       python manage.py test yanote
+        ```
+
+   - For **YaNews** (Pytest):
+
+       ```bash
+       pytest
+       ```
+
+## Contacts
+
+[![Telegram](https://shields.io)](https://t.me)
+[![LinkedIn](https://shields.io)](https://linkedin.com)
