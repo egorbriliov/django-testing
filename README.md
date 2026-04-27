@@ -63,8 +63,3 @@ For **YaNews** (Pytest):
 ```bash
 pytest
 ```
-
-## Contacts
-
-[![Telegram](https://shields.io)](https://t.me)
-[![LinkedIn](https://shields.io)](https://linkedin.com)
